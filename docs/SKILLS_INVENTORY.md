@@ -1,5 +1,5 @@
 # SovereignSkills Inventory
-**Generated:** 2026-06-24 20:10 · **Count:** 7
+**Generated:** 2026-06-24 18:11 · **Count:** 7
 
 | Skill | Triggers | Description |
 |-------|----------|-------------|
