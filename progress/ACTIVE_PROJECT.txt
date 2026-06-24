@@ -1,0 +1,21 @@
+ACTIVE PROJECT (single source of truth)
+========================================
+Path:   ~/CompuSurf_Sovereign_AI_Mastery_v2
+Alias:  compusurf  (cd + venv activate)
+Forge:  ~/AI_Mastery_Project  (symlinked via forge_connectors + scripts/forge_engine.py)
+Date:   22 June 2026
+
+NOT the active project:
+  ~/compusurf/          — legacy (23 items) — audit before archive
+  ~/CompuSurf/          — historical tree
+  ~/compusurf-ai*/      — older experiments
+
+Rule: New work goes in CompuSurf_Sovereign_AI_Mastery_v2 only.
+Legacy folders → ~/CompuSurf_Archive/ (planned, not yet created)
+
+NEW LAYER (22 Jun 2026):
+  sovereign_skills/     — Skills + HermesGraph + Agent Economy
+  scripts/sovereign_agent.py
+  docs/research/sovereign_skills_action_plan.md
+
+LinkedIn: DEFERRED (profile recovery) — draft ready in presenceforge_outputs/
