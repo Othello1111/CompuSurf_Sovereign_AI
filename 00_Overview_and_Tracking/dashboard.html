@@ -6,63 +6,761 @@
     <title>CompuSurf Sovereign AI Mastery v2.0 • Visual Compass</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
-        :root { --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --muted: #64748b; --accent: #0f172a; --success: #166534; --border: #e2e8f0; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --accent: #0f172a;
+            --success: #166534;
+            --border: #e2e8f0;
+        }
+        
         * { box-sizing: border-box; }
-        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; line-height: 1.5; }
-        .nav { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
-        .container { max-width: 1536px; margin: 0 auto; padding: 0 2rem; }
-        .phase-card { background: var(--card); border: 1px solid var(--border); border-radius: 1.5rem; padding: 1.25rem; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; height: 100%; }
-        .phase-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1); }
-        .phase-card.completed { border-color: #166534; background: #f0fdf4; }
-        .section-title { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.03em; }
-        .milestone-label { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.875rem; padding: 0.15rem 0; cursor: pointer; }
-        .milestone-checkbox { width: 1rem; height: 1rem; accent-color: #0f172a; margin-top: 0.15rem; flex-shrink: 0; }
-        .progress-ring { transition: stroke-dashoffset 0.4s ease; }
-        .nav-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.1rem; font-size: 0.875rem; font-weight: 500; background: white; border: 1px solid #cbd5e1; border-radius: 9999px; text-decoration: none; color: #334155; cursor: pointer; }
-        .focus-card { background: white; border: 1px solid var(--border); border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.08); }
-        .phase-number { font-family: ui-monospace, monospace; font-size: 0.7rem; padding: 0.1rem 0.55rem; background: #0f172a; color: white; border-radius: 9999px; font-weight: 600; }
-        .ship-quote { font-size: 0.75rem; color: #166534; font-style: italic; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e2e8f0; }
-        .stat-card { background: white; border: 1px solid var(--border); border-radius: 1.5rem; padding: 1.25rem; display: flex; flex-direction: column; }
-        .grid-phases { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
-        @media (min-width: 1280px) { .grid-phases { grid-template-columns: repeat(4, 1fr); } }
-        .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #0f172a; color: white; padding: 0.75rem 1.25rem; border-radius: 1rem; font-size: 0.875rem; z-index: 200; }
-        .architecture-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; text-align: center; }
-        .arch-layer { background: #0f172a; color: white; padding: 1rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; }
-        .arch-layer .label { font-size: 0.65rem; opacity: 0.7; margin-bottom: 0.25rem; }
-        .storage-warning { background: #fefce8; border: 1px solid #fde047; color: #854d0e; font-size: 0.8rem; padding: 0.5rem 1rem; border-radius: 0.75rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.6rem; }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .nav {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .container {
+            max-width: 1536px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .phase-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 1.25rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .phase-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1);
+        }
+        
+        .phase-card.completed {
+            border-color: #166534;
+            background: #f0fdf4;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+        }
+
+        .milestone-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.875rem;
+            padding: 0.15rem 0;
+            cursor: pointer;
+        }
+        
+        .milestone-label:hover span {
+            color: #0f172a;
+        }
+
+        .milestone-checkbox {
+            width: 1rem;
+            height: 1rem;
+            accent-color: #0f172a;
+            margin-top: 0.15rem;
+            flex-shrink: 0;
+        }
+
+        .progress-ring {
+            transition: stroke-dashoffset 0.4s ease;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 9999px;
+            text-decoration: none;
+            color: #334155;
+            transition: all 0.1s ease;
+        }
+        
+        .nav-btn:hover {
+            background: #f8fafc;
+        }
+
+        .focus-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.08);
+        }
+
+        .phase-number {
+            font-family: ui-monospace, monospace;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.55rem;
+            background: #0f172a;
+            color: white;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+
+        .ship-quote {
+            font-size: 0.75rem;
+            color: #166534;
+            font-style: italic;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .grid-phases {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        @media (min-width: 1280px) {
+            .grid-phases {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: #0f172a;
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 200;
+        }
+
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+            text-align: center;
+        }
+        
+        .arch-layer {
+            background: #0f172a;
+            color: white;
+            padding: 1rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+        }
+        
+        .arch-layer .label {
+            font-size: 0.65rem;
+            opacity: 0.7;
+            margin-bottom: 0.25rem;
+        }
+
+        .storage-warning {
+            background: #fefce8;
+            border: 1px solid #fde047;
+            color: #854d0e;
+            font-size: 0.8rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
     </style>
 </head>
 <body>
-    <nav class="nav"><div class="container"><div style="padding:1rem 0;display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:1rem;"><div style="font-size:1.65rem;font-weight:700;">COMPUSURF</div><div style="font-size:9px;color:#64748b;">SOVEREIGN AI v2.0</div></div><div style="display:flex;align-items:center;gap:0.85rem;"><div style="text-align:right;"><div style="font-size:10px;color:#64748b;">OVERALL PROGRESS</div><div id="overall-progress-text" style="font-size:1.85rem;font-weight:700;">0%</div></div><svg width="52" height="52" style="transform:rotate(-90deg);"><circle cx="26" cy="26" r="22" fill="none" stroke="#e2e8f0" stroke-width="6"></circle><circle id="progress-ring" cx="26" cy="26" r="22" fill="none" stroke="#0f172a" stroke-width="6" stroke-dasharray="138.23" stroke-dashoffset="138.23"></circle></svg></div><button onclick="openGROKmd()" class="nav-btn"><i class="fa-solid fa-book"></i></button><button onclick="openPrompts()" class="nav-btn"><i class="fa-solid fa-magic"></i></button></div></div></nav>
-    <div class="container" style="padding-top:2rem;padding-bottom:4rem;">
-        <div id="storage-warning" class="storage-warning" style="display:none;"><i class="fa-solid fa-exclamation-triangle"></i><span>Session-only mode — open via file:// for permanent saving.</span></div>
-        <h1 style="font-size:3rem;font-weight:700;margin:0 0 1rem;">Sovereign AI Global Mastery</h1>
-        <p style="color:#475569;">Learn → Build Small → Ship → Repeat. Your 8-phase visual compass.</p>
-        <div id="phases-grid" class="grid-phases" style="margin-top:2rem;"></div>
+    <!-- Top Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div style="padding: 1rem 0; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div style="width: 44px; height: 44px; background: #0f172a; border-radius: 1rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fa-solid fa-globe" style="color: white; font-size: 1.6rem;"></i>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.65rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1;">COMPUSURF</div>
+                            <div style="font-size: 9px; color: #64748b; letter-spacing: 1.5px; margin-top: -4px;">SOVEREIGN AI</div>
+                        </div>
+                    </div>
+                    <div style="background: #f1e7ff; color: #581c87; font-size: 10px; padding: 4px 10px; border-radius: 999px; font-weight: 600;">
+                        v2.0 • June 2026
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 1.25rem;">
+                    <div style="display: flex; align-items: center; gap: 0.85rem; background: white; padding: 0.5rem 1rem; border-radius: 9999px; border: 1px solid #e2e8f0;">
+                        <div style="text-align: right;">
+                            <div style="font-size: 10px; color: #64748b; font-weight: 500;">OVERALL PROGRESS</div>
+                            <div id="overall-progress-text" style="font-size: 1.85rem; font-weight: 700; line-height: 1;">0%</div>
+                        </div>
+                        <div style="position: relative; width: 52px; height: 52px;">
+                            <svg width="52" height="52" style="transform: rotate(-90deg);" viewBox="0 0 52 52">
+                                <circle cx="26" cy="26" r="22" fill="none" stroke="#e2e8f0" stroke-width="6"></circle>
+                                <circle id="progress-ring" cx="26" cy="26" r="22" fill="none" 
+                                        stroke="#0f172a" stroke-width="6" 
+                                        stroke-dasharray="138.23" stroke-dashoffset="138.23"
+                                        stroke-linecap="round"></circle>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button onclick="openGROKmd()" class="nav-btn">
+                            <i class="fa-solid fa-book"></i>
+                            <span style="display: none;">GROK.md</span>
+                        </button>
+                        <button onclick="openPrompts()" class="nav-btn">
+                            <i class="fa-solid fa-magic"></i>
+                            <span style="display: none;">Prompts</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+        
+        <div id="storage-warning" class="storage-warning" style="display: none;">
+            <i class="fa-solid fa-exclamation-triangle"></i>
+            <span><strong>Session-only mode active</strong> — Progress resets on page reload. 
+            For permanent saving, open this file directly in your browser.</span>
+        </div>
+
+        <!-- Hero -->
+        <div style="margin-bottom: 2.5rem;">
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-end; justify-content: space-between;">
+                <div style="max-width: 620px;">
+                    <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: #dcfce7; color: #166534; padding: 0.35rem 0.9rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 0.9rem;">
+                        <i class="fa-solid fa-check-double"></i>
+                        <span>PERSONAL PROJECT COMPASS • CONFIDENTIAL</span>
+                    </div>
+                    
+                    <h1 style="font-size: 3.4rem; line-height: 0.95; font-weight: 700; margin: 0 0 0.6rem 0; letter-spacing: -0.04em;">
+                        Sovereign AI<br>Global Mastery
+                    </h1>
+                    <p style="font-size: 1.1rem; color: #475569; max-width: 460px;">
+                        Learn → Build Small → Ship → Repeat.<br>
+                        DeepFlow + Grok orchestration for real sovereign products with global demand.
+                    </p>
+                    
+                    <div style="margin-top: 1rem; display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #64748b;">
+                        <div style="display: flex; margin-right: 0.3rem;">
+                            <div style="width: 26px; height: 26px; background: #0f172a; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white;"><i class="fa-solid fa-user" style="color:white; font-size:0.7rem"></i></div>
+                            <div style="width: 26px; height: 26px; background: #166534; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; margin-left: -8px;"><i class="fa-solid fa-globe" style="color:white; font-size:0.7rem"></i></div>
+                        </div>
+                        Johann Reyneke • FalconUnhinged • Caregiver → Builder
+                    </div>
+                </div>
+
+                <div style="max-width: 380px; background: white; border: 1px solid #e2e8f0; border-radius: 1.25rem; padding: 1.1rem 1.35rem;">
+                    <div style="display: flex; gap: 0.85rem;">
+                        <div style="color: #166534; font-size: 1.5rem; margin-top: 2px;">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <div style="font-size: 0.9rem;">
+                            <div style="font-weight: 700; color: #0f172a;">Big Picture Guardrail</div>
+                            <div style="color: #475569; margin-top: 0.35rem; line-height: 1.35;">
+                                Before any rabbit hole: Open this dashboard. 
+                                Tick one thing. See the ship criteria. Then focus ONLY on the current phase.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Focus + Stats -->
+        <div style="display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-bottom: 2.25rem;">
+            <div style="display: grid; grid-template-columns: 5fr 7fr; gap: 1.25rem;">
+                
+                <div class="focus-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.85rem;">
+                        <div>
+                            <div style="font-size: 0.7rem; font-weight: 700; color: #64748b; letter-spacing: 0.5px;">CURRENT FOCUS</div>
+                            <div id="current-focus-phase" style="font-size: 1.55rem; font-weight: 700; line-height: 1.1; margin-top: 0.2rem;">Phase 1 • Foundation</div>
+                        </div>
+                        <button onclick="setRandomFocus()" 
+                                style="font-size: 0.7rem; padding: 0.35rem 0.7rem; border: 1px solid #cbd5e1; background: white; border-radius: 999px; display: flex; align-items: center; gap: 0.35rem; color: #475569; cursor: pointer;">
+                            <i class="fa-solid fa-sync" style="font-size: 0.65rem;"></i>
+                            <span>Change</span>
+                        </button>
+                    </div>
+                    <div id="current-focus-desc" style="font-size: 0.9rem; color: #475569; line-height: 1.4;">
+                        Restructuring online presence + first market research with DeepFlow. Ship: Professional profiles updated + GROK.md live.
+                    </div>
+                    <div style="margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="background: #fef3c7; color: #854d0e; font-size: 0.7rem; padding: 0.15rem 0.65rem; border-radius: 999px; font-weight: 600;">Week 1 Target</div>
+                        <div style="font-size: 0.75rem; color: #64748b;">Avoid rabbit holes — focus on presence + research first.</div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                    <div class="stat-card">
+                        <div style="font-size: 0.7rem; color: #64748b;">PHASES COMPLETE</div>
+                        <div style="margin-top: auto; display: flex; align-items: baseline; gap: 0.35rem;">
+                            <span id="phases-complete" style="font-size: 2.85rem; font-weight: 700; line-height: 1;">0</span>
+                            <span style="color: #94a3b8; font-size: 1.1rem;">/ 8</span>
+                        </div>
+                        <div style="color: #166534; font-size: 0.75rem; font-weight: 600; margin-top: 0.2rem;">Keep shipping small wins</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div style="font-size: 0.7rem; color: #64748b;">EST. GLOBAL MARKET</div>
+                        <div style="margin-top: auto;">
+                            <span style="font-size: 2.1rem; font-weight: 700;">$67B+</span>
+                        </div>
+                        <div style="color: #166534; font-size: 0.75rem; font-weight: 600;">Family Care AI opportunity</div>
+                    </div>
+                    
+                    <div class="stat-card" style="justify-content: space-between;">
+                        <div>
+                            <div style="font-size: 0.7rem; color: #64748b;">NEXT SHIP</div>
+                            <div style="font-weight: 600; margin-top: 0.3rem;">PresenceForge + GROK.md</div>
+                        </div>
+                        <button onclick="focusPhase(1)" 
+                                style="margin-top: 0.85rem; width: 100%; background: #0f172a; color: white; border: none; padding: 0.55rem 0; border-radius: 999px; font-weight: 600; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                            START PHASE 1 <i class="fa-solid fa-arrow-right" style="font-size:0.75rem"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phases Header -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+            <div>
+                <div class="section-title">8-Phase Implementation Roadmap</div>
+                <div style="color: #64748b; font-size: 0.9rem;">Tick milestones as you ship. Visual progress keeps you on the big picture.</div>
+            </div>
+            <button onclick="resetAllProgress()" 
+                    style="font-size: 0.75rem; display: flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.9rem; color: #b91c1c; border: 1px solid #fecaca; background: #fef2f2; border-radius: 999px; cursor: pointer;">
+                <i class="fa-solid fa-undo"></i>
+                <span>Reset All Progress</span>
+            </button>
+        </div>
+
+        <!-- Phases Grid -->
+        <div id="phases-grid" class="grid-phases"></div>
+
+        <!-- Bottom grids -->
+        <div style="margin-top: 2.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+            
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 1.5rem; padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;">
+                    <i class="fa-solid fa-folder-tree" style="font-size: 1.35rem; color: #475569;"></i>
+                    <div style="font-weight: 700; font-size: 1.15rem;">Aligned Filing System</div>
+                </div>
+                <p style="font-size: 0.9rem; color: #475569; margin-bottom: 1rem;">
+                    Your computer filing system has been restructured to match the v2.0 plan.
+                </p>
+                <div style="font-family: ui-monospace, monospace; font-size: 0.75rem; background: #f8fafc; padding: 0.9rem; border-radius: 0.85rem; line-height: 1.45; color: #334155;">
+                    CompuSurf_Sovereign_AI_Mastery_v2/<br>
+                    ├── 00_Overview_and_Tracking/ ← dashboard + GROK.md<br>
+                    ├── 01_Foundation_Phase1/<br>
+                    ├── ... (Phases 2-8)<br>
+                    ├── prompts/<br>
+                    └── scripts/
+                </div>
+            </div>
+
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 1.5rem; padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;">
+                    <i class="fa-solid fa-download" style="font-size: 1.35rem; color: #475569;"></i>
+                    <div style="font-weight: 700; font-size: 1.15rem;">Programs &amp; Tools to Install</div>
+                </div>
+                <p style="font-size: 0.9rem; color: #475569; margin-bottom: 0.9rem;">Run the setup script on your Ubuntu machine.</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem 0.9rem; font-size: 0.85rem; margin-bottom: 1rem;">
+                    <div style="display:flex; align-items:center; gap:0.4rem;"><i class="fa-solid fa-check" style="color:#166534; width:14px"></i> Ollama + local models</div>
+                    <div style="display:flex; align-items:center; gap:0.4rem;"><i class="fa-solid fa-check" style="color:#166534; width:14px"></i> Docker + Compose</div>
+                    <div style="display:flex; align-items:center; gap:0.4rem;"><i class="fa-solid fa-check" style="color:#166534; width:14px"></i> Python 3.11 + venv</div>
+                    <div style="display:flex; align-items:center; gap:0.4rem;"><i class="fa-solid fa-check" style="color:#166534; width:14px"></i> Crawl4AI / Scrapling</div>
+                    <div style="display:flex; align-items:center; gap:0.4rem;"><i class="fa-solid fa-check" style="color:#166534; width:14px"></i> Stirling-PDF (Docker)</div>
+                    <div style="display:flex; align-items:center; gap:0.4rem;"><i class="fa-solid fa-check" style="color:#166534; width:14px"></i> Evolution API (WhatsApp)</div>
+                </div>
+                
+                <button onclick="showSetupInstructions()" 
+                        style="width:100%; background:#0f172a; color:white; border:none; padding:0.7rem; border-radius:999px; font-weight:600; font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span>VIEW SETUP SCRIPT</span>
+                </button>
+            </div>
+        </div>
+
+        <div style="margin-top: 1.75rem; background: white; border: 1px solid #e2e8f0; border-radius: 1.5rem; padding: 1.5rem;">
+            <div style="font-weight: 700; font-size: 1.15rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fa-solid fa-project-diagram"></i> 
+                <span>Integrated Architecture at a Glance</span>
+            </div>
+            
+            <div class="architecture-grid">
+                <div class="arch-layer"><div class="label">LAYER 1 • IDEATION</div>Obsidian + GROK.md</div>
+                <div class="arch-layer"><div class="label">LAYER 2 • ORCHESTRATION</div>Grok + DeepFlow</div>
+                <div class="arch-layer"><div class="label">LAYER 3 • INTELLIGENCE</div>Hybrid Web + PixelRAG</div>
+                <div class="arch-layer"><div class="label">LAYER 4 • EXECUTION</div>Guardian OS + Docker</div>
+                <div class="arch-layer"><div class="label">LAYER 5 • INTERFACE</div>WhatsApp Sovereign</div>
+                <div style="background: #166534; color: white; padding: 1rem 0.75rem; border-radius: 1rem; font-size: 0.75rem;">
+                    <div class="label" style="color:#bbf7d0;">LAYER 6 • PRODUCTS</div>
+                    Family Guardian + Trading
+                </div>
+            </div>
+        </div>
+
     </div>
-    <footer style="border-top:1px solid #e2e8f0;background:white;padding:1.25rem 0;"><div class="container" style="font-size:0.75rem;color:#64748b;">CompuSurf Sovereign AI Mastery v2.0 • Confidential to Johann Reyneke</div></footer>
+
+    <footer style="border-top: 1px solid #e2e8f0; background: white; padding: 1.25rem 0;">
+        <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #64748b; gap: 0.5rem;">
+            <div>CompuSurf Sovereign AI Mastery v2.0 • Confidential to Johann Reyneke • Built with Grok orchestration</div>
+        </div>
+    </footer>
+
     <script>
-        let progressData = {}; let canUseLocalStorage = true;
-        function safeLoadProgress() { try { const saved = localStorage.getItem('compusurf_progress_v2'); progressData = saved ? JSON.parse(saved) : { completedPhases: [], milestones: {} }; } catch (e) { canUseLocalStorage = false; progressData = { completedPhases: [], milestones: {} }; document.getElementById('storage-warning').style.display = 'flex'; } }
-        function safeSaveProgress() { if (!canUseLocalStorage) return; try { localStorage.setItem('compusurf_progress_v2', JSON.stringify(progressData)); } catch (e) { canUseLocalStorage = false; } }
+        let progressData = {};
+        let canUseLocalStorage = true;
+
+        function safeLoadProgress() {
+            try {
+                const saved = localStorage.getItem('compusurf_progress_v2');
+                progressData = saved ? JSON.parse(saved) : { completedPhases: [], milestones: {} };
+            } catch (e) {
+                canUseLocalStorage = false;
+                progressData = { completedPhases: [], milestones: {} };
+                const banner = document.getElementById('storage-warning');
+                if (banner) banner.style.display = 'flex';
+            }
+        }
+
+        function safeSaveProgress() {
+            if (!canUseLocalStorage) return;
+            try {
+                localStorage.setItem('compusurf_progress_v2', JSON.stringify(progressData));
+            } catch (e) {
+                canUseLocalStorage = false;
+                const banner = document.getElementById('storage-warning');
+                if (banner) banner.style.display = 'flex';
+            }
+        }
+
         const phases = [
-            { id: 1, number: '01', title: 'Foundation, Research & Online Presence', weeks: 'Week 1', desc: 'GROK.md + PresenceForge + professional presence', ship: 'Updated professional online presence + first certificate in progress', milestones: ['GROK.md template created & populated', 'Phase 1 GCHPP prompts ready', 'Market research completed', 'LinkedIn / X / GitHub audit + improved bio drafted'] },
-            { id: 2, number: '02', title: 'Hybrid Web Intelligence Layer', weeks: 'Weeks 2-3', desc: 'Crawl4AI + PixelRAG fallback', ship: 'Production-ready Hybrid Web Tool + documentation', milestones: ['Crawl4AI installed & tested', 'PixelRAG integrated', 'Security layer added', 'Tested on trading dashboard'] },
-            { id: 3, number: '03', title: 'Self-Hosted Knowledge + WhatsApp', weeks: 'Weeks 3-5', desc: 'Stirling-PDF + Evolution API dual instances', ship: 'Sovereign document processing + WhatsApp automation live', milestones: ['Stirling-PDF ready', 'Evolution API configured', 'Family reminder tested', 'Business alerts working'] },
-            { id: 4, number: '04', title: 'Jarvis Execution Pipeline', weeks: 'Weeks 5-7', desc: 'Human-gated orchestration pipeline', ship: 'Jarvis pipeline handling real tasks with oversight', milestones: ['Orchestration implemented', 'Human gate functional', 'End-to-end test', 'Obsidian integrated'] },
-            { id: 5, number: '05', title: 'Family Guardian Agent MVP', weeks: 'Weeks 6-7', desc: 'Local-first caregiver agent', ship: 'Shippable Family Guardian prototype', milestones: ['Core spec generated', 'Tools integrated', 'Family scenarios tested', 'Privacy documented'] },
-            { id: 6, number: '06', title: 'Productization & Monetization', weeks: 'Weeks 7-9', desc: 'Sovereign DataForge positioning', ship: 'First revenue experiment + packaging', milestones: ['Landing page copy', 'GTM validated', 'First lead live', 'Packaging complete'] },
-            { id: 7, number: '07', title: 'Trading Intelligence + Self-Improvement', weeks: 'Weeks 8-10', desc: 'TradeShield + DeepFlow monitoring', ship: 'Better trading agents + self-improvement running', milestones: ['Hybrid Web in trading', 'Weekly DeepFlow runs', 'Self-healing live', 'Metrics added'] },
-            { id: 8, number: '08', title: 'Portfolio & Global Positioning', weeks: 'Ongoing', desc: 'GitHub + certificates + presence', ship: 'Strong professional brand for global clients', milestones: ['GitHub portfolio updated', 'Certificates submitted', 'PresenceForge maintenance', 'Bilingual docs complete'] }
+            { id: 1, number: "01", title: "Foundation, Research & Online Presence", weeks: "Week 1",
+              desc: "GROK.md created • PresenceForge Agent runs first audit • Professional bio + LinkedIn/X strategy ready",
+              ship: "Updated professional online presence + first certificate in progress",
+              milestones: ["GROK.md template created & populated", "Phase 1 GCHPP prompts ready", "Market research completed", "LinkedIn / X / GitHub audit + improved bio drafted"] },
+            { id: 2, number: "02", title: "Hybrid Web Intelligence Layer", weeks: "Weeks 2-3",
+              desc: "hybrid_web_tool.py working with Crawl4AI + PixelRAG fallback • Security layer • Integrated into Guardian agent",
+              ship: "Production-ready Hybrid Web Tool + documentation",
+              milestones: ["Crawl4AI / Scrapling installed & tested", "PixelRAG vision fallback integrated", "Security sanitization layer added", "Tested on trading dashboard"] },
+            { id: 3, number: "03", title: "Self-Hosted Knowledge + WhatsApp Layer", weeks: "Weeks 3-5",
+              desc: "Stirling-PDF + Open Notebook deployed • Evolution API dual instances live • Webhook to Guardian OS",
+              ship: "Sovereign document processing + WhatsApp automation live",
+              milestones: ["Docker Compose for Stirling-PDF ready", "Evolution API dual WhatsApp configured", "Family medication reminder tested", "Business alerts working"] },
+            { id: 4, number: "04", title: "Grok-Powered Jarvis Execution Pipeline", weeks: "Weeks 5-7",
+              desc: "Full blood-brain barrier working • Research → Scaffold → Review workers • Human gate",
+              ship: "Jarvis pipeline handling real tasks with your oversight",
+              milestones: ["Orchestration script implemented", "Human gate functional", "End-to-end test completed", "Integrated with Obsidian"] },
+            { id: 5, number: "05", title: "Family Guardian Agent MVP ★", weeks: "Weeks 6-7",
+              desc: "Local-first agent for routines, reminders, simple health logging • Privacy-first design",
+              ship: "Shippable Family Guardian Agent prototype",
+              milestones: ["Core agent spec generated", "Hybrid Web + Self-Hosted tools integrated", "Tested with family scenarios", "Privacy-first architecture documented"] },
+            { id: 6, number: "06", title: "Productization & First Monetization", weeks: "Weeks 7-9",
+              desc: "Sovereign DataForge positioning • Pricing models • White-label offer ready",
+              ship: "First revenue experiment + professional product packaging",
+              milestones: ["Landing page copy + pricing generated", "Go-to-market strategy validated", "First client lead live", "Product packaging complete"] },
+            { id: 7, number: "07", title: "Trading Intelligence + Self-Improvement", weeks: "Weeks 8-10",
+              desc: "Enhanced Quantum Edge / TradeShield with web data • DeepFlow monitoring progress",
+              ship: "Measurably better trading agents + automated self-improvement running",
+              milestones: ["Hybrid Web integrated into trading", "Weekly DeepFlow runs scheduled", "Self-healing enhancements live", "Performance metrics added"] },
+            { id: 8, number: "08", title: "Portfolio, Certificates & Global Positioning", weeks: "Ongoing",
+              desc: "GitHub repo documented • 3+ certificates • Professional LinkedIn + X presence",
+              ship: "Strong professional brand ready for global freelance/clients",
+              milestones: ["GitHub portfolio updated", "Certificates submitted", "PresenceForge maintenance run", "Bilingual documentation complete"] }
         ];
-        function calculateOverallProgress() { let total = 0, done = 0; phases.forEach(p => { total += p.milestones.length; done += (progressData.milestones[p.id] || []).length; }); const bonus = (progressData.completedPhases || []).length * 2; return Math.min(100, Math.round(((done + bonus) / (total + 16)) * 100)); }
-        function updateOverallProgressUI() { const percent = calculateOverallProgress(); document.getElementById('overall-progress-text').textContent = percent + '%'; const ring = document.getElementById('progress-ring'); ring.setAttribute('stroke-dashoffset', 138.23 - (percent / 100 * 138.23)); }
-        function renderPhases() { const grid = document.getElementById('phases-grid'); grid.innerHTML = ''; phases.forEach(phase => { const isDone = (progressData.completedPhases || []).includes(phase.id); const doneMilestones = progressData.milestones[phase.id] || []; const card = document.createElement('div'); card.className = 'phase-card' + (isDone ? ' completed' : ''); let html = '<div style="font-weight:700;">' + phase.title + '</div><div style="font-size:0.82rem;color:#475569;margin:0.5rem 0;">' + phase.desc + '</div>'; phase.milestones.forEach((m, idx) => { const checked = doneMilestones.includes(idx) ? 'checked' : ''; html += '<label class="milestone-label"><input type="checkbox" class="milestone-checkbox" ' + checked + ' onchange="toggleMilestone(' + phase.id + ',' + idx + ',this.checked)"><span>' + m + '</span></label>'; }); html += '<div class="ship-quote">"' + phase.ship + '"</div>'; card.innerHTML = html; grid.appendChild(card); }); }
-        function toggleMilestone(phaseId, idx, checked) { if (!progressData.milestones[phaseId]) progressData.milestones[phaseId] = []; const arr = progressData.milestones[phaseId]; if (checked && !arr.includes(idx)) arr.push(idx); if (!checked) progressData.milestones[phaseId] = arr.filter(i => i !== idx); safeSaveProgress(); updateOverallProgressUI(); renderPhases(); }
+
+        function calculateOverallProgress() {
+            let total = 0, done = 0;
+            phases.forEach(p => {
+                total += p.milestones.length;
+                const m = progressData.milestones[p.id] || [];
+                done += m.length;
+            });
+            const bonus = (progressData.completedPhases || []).length * 2;
+            return Math.min(100, Math.round(((done + bonus) / (total + 16)) * 100));
+        }
+
+        function updateOverallProgressUI() {
+            const percent = calculateOverallProgress();
+            document.getElementById('overall-progress-text').textContent = percent + '%';
+            const ring = document.getElementById('progress-ring');
+            const circ = 138.23;
+            ring.setAttribute('stroke-dashoffset', circ - (percent / 100 * circ));
+            document.getElementById('phases-complete').textContent = (progressData.completedPhases || []).length;
+        }
+
+        function renderPhases() {
+            const grid = document.getElementById('phases-grid');
+            grid.innerHTML = '';
+
+            phases.forEach(phase => {
+                const isDone = (progressData.completedPhases || []).includes(phase.id);
+                const doneMilestones = progressData.milestones[phase.id] || [];
+                
+                const card = document.createElement('div');
+                card.className = `phase-card ${isDone ? 'completed' : ''}`;
+                
+                let html = `
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.6rem;">
+                        <div>
+                            <div style="display:flex; align-items:center; gap:0.5rem;">
+                                <span class="phase-number">${phase.number}</span>
+                                <span style="font-size:0.7rem; background:#f1e7ff; color:#581c87; padding:1px 7px; border-radius:999px;">${phase.weeks}</span>
+                            </div>
+                            <div style="font-weight:700; font-size:1.05rem; line-height:1.15; margin-top:0.4rem;">${phase.title}</div>
+                        </div>
+                        ${isDone ? `<i class="fa-solid fa-check-circle" style="color:#166534; font-size:1.65rem; margin-top:4px;"></i>` : ''}
+                    </div>
+                    
+                    <div style="flex:1; font-size:0.82rem; color:#475569; line-height:1.35; margin-bottom:0.9rem;">${phase.desc}</div>
+                    
+                    <div style="border-top:1px solid #e2e8f0; padding-top:0.65rem; margin-bottom:0.5rem;">
+                        <div style="font-size:0.65rem; font-weight:700; color:#64748b; margin-bottom:0.35rem;">KEY MILESTONES</div>
+                `;
+                
+                phase.milestones.forEach((m, idx) => {
+                    const checked = doneMilestones.includes(idx) ? 'checked' : '';
+                    html += `
+                        <label class="milestone-label">
+                            <input type="checkbox" class="milestone-checkbox" data-phase="${phase.id}" data-idx="${idx}" ${checked}
+                                   onchange="toggleMilestone(${phase.id}, ${idx}, this.checked)">
+                            <span style="color:#334155; line-height:1.3;">${m}</span>
+                        </label>
+                    `;
+                });
+                
+                html += `</div>
+                    <div style="margin-top:auto; padding-top:0.65rem; border-top:1px solid #e2e8f0; display:flex; gap:0.5rem;">
+                        <button onclick="focusPhase(${phase.id})" 
+                                style="flex:1; font-size:0.75rem; padding:0.45rem 0; background:white; border:1px solid #cbd5e1; border-radius:999px; font-weight:600; cursor:pointer;">
+                            <i class="fa-solid fa-bullseye"></i> FOCUS
+                        </button>
+                        <button onclick="markPhaseComplete(${phase.id}, this)" 
+                                style="flex:1; font-size:0.75rem; padding:0.45rem 0; background:${isDone ? '#166534' : '#0f172a'}; color:white; border:none; border-radius:999px; font-weight:600; cursor:pointer;">
+                            ${isDone ? 'DONE ✓' : 'MARK COMPLETE'}
+                        </button>
+                    </div>
+                    
+                    <div class="ship-quote">"${phase.ship}"</div>
+                `;
+                
+                card.innerHTML = html;
+                grid.appendChild(card);
+            });
+        }
+
+        function toggleMilestone(phaseId, idx, checked) {
+            if (!progressData.milestones[phaseId]) progressData.milestones[phaseId] = [];
+            const arr = progressData.milestones[phaseId];
+            if (checked && !arr.includes(idx)) arr.push(idx);
+            if (!checked) progressData.milestones[phaseId] = arr.filter(i => i !== idx);
+            
+            safeSaveProgress();
+            updateOverallProgressUI();
+            
+            const phase = phases.find(p => p.id === phaseId);
+            if (progressData.milestones[phaseId].length === phase.milestones.length && 
+                !(progressData.completedPhases || []).includes(phaseId)) {
+                progressData.completedPhases = progressData.completedPhases || [];
+                progressData.completedPhases.push(phaseId);
+                safeSaveProgress();
+                renderPhases();
+            }
+        }
+
+        function markPhaseComplete(phaseId) {
+            progressData.completedPhases = progressData.completedPhases || [];
+            const phase = phases.find(p => p.id === phaseId);
+            const isDone = progressData.completedPhases.includes(phaseId);
+            
+            if (!isDone) {
+                progressData.completedPhases.push(phaseId);
+                progressData.milestones[phaseId] = phase.milestones.map((_, i) => i);
+                safeSaveProgress();
+                renderPhases();
+                updateOverallProgressUI();
+                showToast(`Phase ${phaseId} marked complete! Ship achieved.`);
+            } else {
+                progressData.completedPhases = progressData.completedPhases.filter(id => id !== phaseId);
+                safeSaveProgress();
+                renderPhases();
+                updateOverallProgressUI();
+            }
+        }
+
+        function focusPhase(phaseId) {
+            const phase = phases.find(p => p.id === phaseId);
+            if (!phase) return;
+            
+            document.getElementById('current-focus-phase').innerHTML = `Phase ${phaseId} • ${phase.title.split(' ').slice(0,3).join(' ')}`;
+            document.getElementById('current-focus-desc').innerHTML = phase.desc;
+            
+            const cards = document.querySelectorAll('.phase-card');
+            cards.forEach(c => c.style.boxShadow = '');
+            setTimeout(() => {
+                cards.forEach((c, i) => { if (phases[i].id === phaseId) c.style.boxShadow = '0 0 0 3px #0f172a'; });
+                setTimeout(() => cards.forEach(c => c.style.boxShadow = ''), 1800);
+            }, 50);
+            
+            document.getElementById('phases-grid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            showToast(`Focused on Phase ${phaseId}.`);
+        }
+
+        function setRandomFocus() {
+            const incomplete = phases.filter(p => !(progressData.completedPhases || []).includes(p.id));
+            if (incomplete.length === 0) { showToast("All phases complete!"); return; }
+            focusPhase(incomplete[Math.floor(Math.random() * incomplete.length)].id);
+        }
+
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.innerHTML = `${msg} <button style="background:none;border:none;color:#94a3b8;font-size:1.1rem;line-height:1;cursor:pointer;" onclick="this.parentElement.remove()">×</button>`;
+            document.body.appendChild(t);
+            setTimeout(() => t.parentNode && t.parentNode.removeChild(t), 3800);
+        }
+
         function openGROKmd() { window.open('GROK.md', '_blank'); }
         function openPrompts() { window.open('../prompts/phase1_gchpp_prompts.md', '_blank'); }
-        function initializeDashboard() { safeLoadProgress(); renderPhases(); updateOverallProgressUI(); }
+
+        function showSetupInstructions() {
+            const modal = document.createElement('div');
+            modal.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.75);display:flex;align-items:center;justify-content:center;z-index:200;padding:1.5rem;';
+            
+            modal.innerHTML = `
+                <div style="background:white;max-width:620px;width:100%;border-radius:1.5rem;padding:2rem;max-height:82vh;overflow:auto;">
+                    <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:1.25rem;">
+                        <div>
+                            <div style="font-size:1.35rem;font-weight:700;">Sovereign Environment Setup</div>
+                            <div style="font-size:0.85rem;color:#64748b;">Run on your Ubuntu machine (internet required)</div>
+                        </div>
+                        <button id="close-modal-btn" style="font-size:2rem;line-height:1;color:#94a3b8;background:none;border:none;cursor:pointer;">×</button>
+                    </div>
+                    <pre style="background:#0f172a;color:#86efac;padding:1rem;border-radius:1rem;font-size:0.78rem;overflow:auto;line-height:1.4;"><code>#!/bin/bash
+# Save as setup_sovereign.sh and run
+
+sudo apt update && sudo apt install -y python3.11 python3.11-venv python3-pip docker.io docker-compose git curl
+
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull phi3:mini
+ollama pull llava:7b
+
+python3.11 -m venv ~/.venvs/sovereign-ai
+source ~/.venvs/sovereign-ai/bin/activate
+pip install crawl4ai langgraph docker pyyaml requests beautifulsoup4
+
+echo "Setup complete."</code></pre>
+                    <p style="font-size:0.8rem;color:#475569;margin-top:1rem;">Full details in scripts/setup_sovereign_environment.sh</p>
+                    <button id="close-modal-btn2" style="margin-top:1.25rem;width:100%;background:#0f172a;color:white;border:none;padding:0.75rem;border-radius:999px;font-weight:600;">CLOSE</button>
+                </div>`;
+
+            document.body.appendChild(modal);
+
+            // Add event listeners for close buttons (avoids complex inline escaping)
+            const closeBtn = modal.querySelector('#close-modal-btn');
+            const closeBtn2 = modal.querySelector('#close-modal-btn2');
+            
+            function closeModal() {
+                modal.remove();
+            }
+            
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (closeBtn2) closeBtn2.addEventListener('click', closeModal);
+            
+            // Close on outside click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        function resetAllProgress() {
+            if (!confirm('Reset ALL progress?')) return;
+            if (canUseLocalStorage) {
+                try { localStorage.removeItem('compusurf_progress_v2'); } catch(e){}
+            }
+            progressData = { completedPhases: [], milestones: {} };
+            renderPhases();
+            updateOverallProgressUI();
+            showToast('Progress reset.');
+        }
+
+        function initializeDashboard() {
+            safeLoadProgress();
+            renderPhases();
+            updateOverallProgressUI();
+            
+            if ((progressData.completedPhases || []).length === 0) {
+                document.getElementById('current-focus-phase').innerHTML = 'Phase 1 • Foundation';
+                document.getElementById('current-focus-desc').innerHTML = phases[0].desc;
+            } else {
+                const first = phases.find(p => !(progressData.completedPhases || []).includes(p.id));
+                if (first) {
+                    document.getElementById('current-focus-phase').innerHTML = `Phase ${first.id} • ${first.title.split(' ').slice(0,3).join(' ')}`;
+                    document.getElementById('current-focus-desc').innerHTML = first.desc;
+                }
+            }
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key.toLowerCase() === 'f' && document.activeElement.tagName === 'BODY') {
+                    const inc = phases.filter(p => !(progressData.completedPhases || []).includes(p.id));
+                    if (inc.length) focusPhase(inc[0].id);
+                }
+            });
+        }
+
         window.onload = initializeDashboard;
     </script>
 </body>
