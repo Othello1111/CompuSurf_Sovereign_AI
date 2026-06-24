@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Secrets & API keys — NEVER commit
+.env
+*.env
+!*.env.example
+secrets/
+api_keys/
+config/local*.yaml
+config/private*.json
+
+# Runtime data & memory graph
+sovereign_skills/data/
+progress/*.log
+progress/checkup_*.log
+
+# Logs & temp
+*.log
+logs/
+tmp/
+temp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large binaries / models
+*.gguf
+*.bin
+models/
+
+# Confidential manuals — keep local
+00_Overview_and_Tracking/*.pdf
+
+# Forge symlinks (machine-specific — see docs/FORGE_SETUP.md)
+forge_connectors
+scripts/forge_engine.py
+
+# Private presence drafts (public README has final copy)
+docs/research/presenceforge_outputs/linkedin_draft_*.md
+progress/legacy_inventory_*.md
