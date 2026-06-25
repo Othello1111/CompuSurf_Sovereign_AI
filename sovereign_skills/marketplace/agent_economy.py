@@ -41,9 +41,7 @@ class AgentEconomy:
         data = json.loads(self.state_path.read_text(encoding="utf-8"))
         self.agents = data.get("agents", {})
         self.ledger = data.get("ledger", [])
-        self.jobs = {
-            k: Job(**v) for k, v in data.get("jobs", {}).items()
-        }
+        self.jobs = {k: Job(**v) for k, v in data.get("jobs", {}).items()}
 
     def save(self) -> None:
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
@@ -110,13 +108,15 @@ class AgentEconomy:
         self.agents[requester]["credits"] -= job.budget_credits
         self.agents[agent_id]["jobs_completed"] += 1
         self.agents[agent_id]["reputation"] += 5
-        self.ledger.append({
-            "timestamp": datetime.now().isoformat(),
-            "from": requester,
-            "to": agent_id,
-            "amount": job.budget_credits,
-            "job_id": job_id,
-            "result_summary": result[:200],
-        })
+        self.ledger.append(
+            {
+                "timestamp": datetime.now().isoformat(),
+                "from": requester,
+                "to": agent_id,
+                "amount": job.budget_credits,
+                "job_id": job_id,
+                "result_summary": result[:200],
+            }
+        )
         self.save()
         return True

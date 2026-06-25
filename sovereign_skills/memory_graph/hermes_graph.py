@@ -63,13 +63,37 @@ class HermesGraph:
         if self.G.number_of_nodes() > 0:
             return
         nodes = [
-            ("project:compusurf_v2", "project", {"title": "CompuSurf Sovereign AI Mastery v2.0", "phase": "1"}),
-            ("project:forge_v06", "project", {"title": "Sovereign Forge Engine v0.6", "connectors": 21}),
-            ("project:family_guardian", "project", {"title": "Family Guardian Agent", "status": "MVP"}),
+            (
+                "project:compusurf_v2",
+                "project",
+                {"title": "CompuSurf Sovereign AI Mastery v2.0", "phase": "1"},
+            ),
+            (
+                "project:forge_v06",
+                "project",
+                {"title": "Sovereign Forge Engine v0.6", "connectors": 21},
+            ),
+            (
+                "project:family_guardian",
+                "project",
+                {"title": "Family Guardian Agent", "status": "MVP"},
+            ),
             ("project:tradeshield", "project", {"title": "TradeShield", "status": "In Progress"}),
-            ("decision:local_first", "decision", {"text": "Ollama local-first; Gemini/Claude hybrid fallback only"}),
-            ("decision:human_gate", "decision", {"text": "Human gate before public changes and file apply"}),
-            ("skill:sovereign_skills", "skill", {"text": "SovereignSkills + HermesGraph layer integrated"}),
+            (
+                "decision:local_first",
+                "decision",
+                {"text": "Ollama local-first; Gemini/Claude hybrid fallback only"},
+            ),
+            (
+                "decision:human_gate",
+                "decision",
+                {"text": "Human gate before public changes and file apply"},
+            ),
+            (
+                "skill:sovereign_skills",
+                "skill",
+                {"text": "SovereignSkills + HermesGraph layer integrated"},
+            ),
         ]
         for node_id, node_type, data in nodes:
             self.add_node(node_id, node_type, data)

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """PresenceForge — LinkedIn headline + About draft via Gemini (human gate before publish)."""
 
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -10,7 +9,7 @@ V2_ROOT = Path(__file__).resolve().parents[1]
 FORGE_ROOT = Path.home() / "AI_Mastery_Project"
 sys.path.insert(0, str(FORGE_ROOT))
 
-from agents.gemini_bridge import GeminiBridge, SOVEREIGN_SYSTEM_PROMPT  # noqa: E402
+from agents.gemini_bridge import SOVEREIGN_SYSTEM_PROMPT, GeminiBridge  # noqa: E402
 
 OUTPUT_DIR = V2_ROOT / "docs" / "research" / "presenceforge_outputs"
 GROK_PATH = V2_ROOT / "00_Overview_and_Tracking" / "GROK.md"

@@ -50,7 +50,9 @@ class SovereignSkillLoader:
             elif stripped.startswith("trigger:"):
                 raw = stripped.split(":", 1)[1]
                 trigger_keywords = [k.strip() for k in re.split(r"[,;]", raw) if k.strip()]
-            elif stripped.lower().startswith("## instructions") or stripped.lower().startswith("## core"):
+            elif stripped.lower().startswith("## instructions") or stripped.lower().startswith(
+                "## core"
+            ):
                 current_section = "instructions"
             elif stripped.lower().startswith("## examples"):
                 current_section = "examples"

@@ -21,8 +21,8 @@ sys.path.insert(0, str(V2_ROOT))
 sys.path.insert(0, str(FORGE_ROOT))
 
 from sovereign_skills.core.skill_loader import SovereignSkillLoader  # noqa: E402
-from sovereign_skills.memory_graph.hermes_graph import HermesGraph  # noqa: E402
 from sovereign_skills.marketplace.agent_economy import AgentEconomy  # noqa: E402
+from sovereign_skills.memory_graph.hermes_graph import HermesGraph  # noqa: E402
 
 
 def build_prompt(task: str) -> str:
@@ -40,7 +40,7 @@ def build_prompt(task: str) -> str:
 === CURRENT TASK ===
 {task}
 
-Matched skills: {', '.join(matched) if matched else 'none'}
+Matched skills: {", ".join(matched) if matched else "none"}
 Respond with: analysis, risks, and 3 concrete next steps.
 """
 
@@ -63,7 +63,9 @@ def run_llm(prompt: str, provider: str) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Sovereign Agent — Skills + Graph")
     parser.add_argument("--task", type=str, help="Task description")
-    parser.add_argument("--run", action="store_true", help="Execute via LLM (human gate on actions)")
+    parser.add_argument(
+        "--run", action="store_true", help="Execute via LLM (human gate on actions)"
+    )
     parser.add_argument("--provider", choices=["ollama", "gemini"], default="ollama")
     parser.add_argument("--status", action="store_true", help="Show skills/graph/economy status")
     parser.add_argument("--seed-graph", action="store_true", help="Seed HermesGraph baseline nodes")
