@@ -116,6 +116,24 @@ python scripts/sovereign_agent.py --task "Your task" --run --provider gemini
 
 Full plan: `docs/research/sovereign_skills_action_plan.md`
 
+### 3.3 Sovereign CI (GitHub Actions — No LLM, No Cloud APIs)
+
+Free quality gate on every push/PR. Protects skills, graph, and Python integrity.
+
+| Workflow | Purpose |
+|----------|---------|
+| `validate-skills-graph.yml` | 7+ skills load, HermesGraph seeds, agent imports |
+| `update-skills-inventory.yml` | Auto-regenerate `docs/SKILLS_INVENTORY.md` |
+| `ruff-sovereign-lint.yml` | Lint + format (E, F, I rules via `pyproject.toml`) |
+
+```bash
+python scripts/validate_sovereign_skills.py   # same as CI
+ruff check . && ruff format --check .
+```
+
+**Repo:** https://github.com/Othello1111/CompuSurf_Sovereign_AI  
+**Rules:** No secrets in repo. No LLM calls in CI. Human gate before public profile changes.
+
 ---
 
 ## 4. 8-PHASE MASTER IMPLEMENTATION PLAN (Summary)
